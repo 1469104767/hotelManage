@@ -1,11 +1,9 @@
 package com.niup.demo.dao;
 
-import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import com.niup.demo.entity.Test;
 import com.niup.jdbc.JdbcUtil;
 
 public class BaseDao<T> {
@@ -30,7 +28,7 @@ public class BaseDao<T> {
      * <li>创建日期：2019年11月14日
      */
     public T find(int id) {
-        String sql = JdbcUtil.getSql(Test.class, "select") + "where id = ?";
+        String sql = JdbcUtil.getSql(genericityClass, "select") + "where id = ?";
         return JdbcUtil.selectOne(sql, genericityClass, id);
     }
 
@@ -42,19 +40,22 @@ public class BaseDao<T> {
      * <li>说明：根据id修改,parameters应该按sql顺序传
      * <li>创建日期：2019年11月14日
      */
-    public void update(int id,Serializable... parameters) {
-        String sql = JdbcUtil.getSql(Test.class, "update");
-        JdbcUtil.update(sql, parameters,id);
+    public void update(Object... parameters) {
+        String sql = JdbcUtil.getSql(genericityClass, "update");
+        JdbcUtil.update(sql, parameters);
     }
 
     public List<T> findList(String queryString) {
-        String sql = JdbcUtil.getSql(Test.class, "select") + queryString;
+        String sql = JdbcUtil.getSql(genericityClass, "select") + queryString;
         return JdbcUtil.selectList(sql, genericityClass);
     }
 
     public void delete(int id) {
-        String sql = JdbcUtil.getSql(Test.class, "delete");
+        String sql = JdbcUtil.getSql(genericityClass, "delete");
         JdbcUtil.update(sql,id);
     }
-
+    public void save(Object... parameters) {
+    	String sql = JdbcUtil.getSql(genericityClass, "insert");
+    	JdbcUtil.update(sql,parameters);
+    }
 }

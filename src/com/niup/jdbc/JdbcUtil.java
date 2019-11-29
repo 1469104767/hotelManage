@@ -14,8 +14,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import com.niup.demo.dao.StudentDao;
 import com.niup.demo.dao.TestDao;
+import com.niup.demo.dao.UserDao;
+import com.niup.demo.entity.Student;
 import com.niup.demo.entity.Test;
+import com.niup.demo.entity.User;
 
 /**
  * <li>类型名称：JdbcUtil
@@ -39,7 +43,7 @@ public class JdbcUtil {
      * <li>创建日期：2019年11月14日
      */
     @SuppressWarnings("unchecked")
-    public static <T> List<T> selectList(String sql,Class<T> claaz,Serializable... parameter) {
+    public static <T> List<T> selectList(String sql,Class<T> claaz,Object... parameter) {
         Connection connection = null;
         Object obj=null;
         List<T> list = new ArrayList<>();
@@ -60,9 +64,9 @@ public class JdbcUtil {
                       //为对象属性赋值
                      fd.set(obj,rs.getObject(fd.getName()));
                 }
+                //返回转换后的集合
+                list.add((T)obj);
             }
-            //返回转换后的集合
-            list.add((T)obj);
         } catch (Exception e) {
             e.printStackTrace();
         }finally{
@@ -82,7 +86,7 @@ public class JdbcUtil {
      * <li>创建日期：2019年11月14日
      */
     @SuppressWarnings("unchecked")
-    public static <T> T selectOne(String sql,Class<T> claaz,Serializable... parameter) {
+    public static <T> T selectOne(String sql,Class<T> claaz,Object... parameter) {
         Connection connection = null;
         Object obj=null;
         try {
@@ -120,7 +124,7 @@ public class JdbcUtil {
      * <li>说明： 执行更新操作
      * <li>创建日期：2019年11月14日
      */
-    public static <T> T update(String sql,Serializable... parameter) {
+    public static <T> T update(String sql,Object... parameter) {
         Connection connection = null;
         Object obj=null;
         try {
@@ -179,6 +183,14 @@ public class JdbcUtil {
         return getSqlProperties(clazz).getProperty(sqlName);
     }
     public static void main(String[] args) throws SQLException {
-        System.out.println(TestDao.getInstance().findList("where name ='张三'"));
+    	StudentDao instance = StudentDao.getInstance();
+    	instance.save("liuming",48);
+    	instance.save("niupi",48);
+    	List<Student> studentByAge = instance.studentByAge(48);
+    	System.out.println("插入成功");
+    	for (Student student : studentByAge) {
+			System.out.println(student.getName());
+		}
+    	
     }
 }
