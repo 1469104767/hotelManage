@@ -1,0 +1,93 @@
+body{
+	margin: 0 auto;
+}
+#header{
+	height: 100px;
+    background-color: darkblue;
+    
+}
+
+#center{
+	height: 500px;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+#center #right{
+    height: 600px;
+    display: block;
+    width: 100%;
+    background-color: khaki;
+    
+}
+#footer{
+    height: 53px;
+    width: 100%;
+    margin:0 auto;
+    top: 670px;
+    position: absolute;
+    background-color: black;
+    color: cornsilk;
+}
+#footer #contacts{
+    float: left;
+    margin: 14px 100px;
+    
+    text-align: center;
+    vertical-align: middle;
+}
+#footer .white{
+    float: right;
+    margin:6px 80px;
+    text-align: center;
+    vertical-align: middle;
+    
+}
+#footer .white a{
+    color: #fff;
+    float: left;
+    margin:6px 10px;
+    padding: -4px;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+}
+
+#right label{
+    display: block;
+    height: 50px;
+    margin: 10px;
+    overflow: hidden;
+}
+#right span{
+    float: left;
+    width: 200px;
+    padding-left: 380px;
+}
+#right input{
+    float: left;
+    border: 1px solid #a4a4a4;
+    width: 310px;
+    padding: 1px 5px 1px 5px;
+    height: 40px;
+    
+}
+#right h2{
+    margin: 0;
+    text-align: center;
+    background-color: lavenderblush;
+    border-top: #cccccc 1px solid;
+    border-bottom: #cccccc 1px solid;
+    padding-bottom:10px;
+    padding-top: 10px;
+    font-weight: bold;
+}
+#right .button{
+    float: left;
+    text-align: center;
+    margin-left: 590px;
+    margin-top: 14px;
+    width: 180px;
+    height: 38px;
+}
