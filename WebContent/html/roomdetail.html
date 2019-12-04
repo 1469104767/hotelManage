@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>房间详情</title>
+    
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <style>
+        .rightbox .rightbox-container .addPeopleBtn,.rightbox .rightbox-container .removePeopleBtn{
+            padding:5px 20px;
+            margin: 20px;
+            border-radius:5px; 
+            background: #108ee9;
+            border: 1px solid #108ee9;
+            color: #fff;
+            
+        }
+        .rightbox .rightbox-container .title{
+            line-height: 36px;
+            font-size: 24px
+        }
+        .rightbox .rightbox-container .roomdetailbox{
+            padding: 40px;
+            display: flex;
+            justify-content:center;
+        }
+        .rightbox .rightbox-container .roomdetailbox .leftImg{
+            width: 300px;
+            height: 300px;
+        }
+        .rightbox .rightbox-container .roomdetailbox .leftImg img{
+            width: 100%;
+        }
+        .rightbox .rightbox-container .roomdetailbox .rightcontent{
+            margin-left: 20px;
+            line-height: 36px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="leftbox">
+        <div class="logo">
+            <img src="../imgs/logo.png" alt="">
+        </div>
+        <ul class="menu">
+                <li class="current"><a href="./roomlist.html">房间管理</a></li>
+                <li><a href="./orderlist.html">订单管理</a></li>
+                <li><a href="./userlist.html">会员管理</a></li>
+        </ul>
+    </div>
+    <div class="rightbox">
+        <div class="rightbox-header">
+            <p class="logo-title">酒店管理平台<p>
+            <p>admin</p>
+        </div>
+        <div class="rightbox-container">
+                <div class="title">房间详情</div>
+                <a class="addPeopleBtn" href="#myModal" role="button" class="btn" data-toggle="modal">房客入住</a>
+                <button class="removePeopleBtn">房客退房</button>
+                <div class="roomdetailbox">
+                    <div class="leftImg">
+                        <img src="../imgs/lalala.jpg" alt="">
+                    </div>
+                    <div class="rightcontent">
+                            <p>房间编号：101</p>
+                            <p>房间类型：大床房</p>
+                            <p>房间价格: 400.00</p>
+                            <p>房间状态：已入住</p>
+                            <p>入住房客：张三</p>
+                            <p>房客电话：8008208820</p>
+                            <p>入住时间：2018-12-02</p>
+                            <p>结束时间：2019-02-24 </p>   
+                    </div>
+                </div>
+            </div>
+             
+    <!-- Modal -->
+    <div id="myModal" data-backdrop="static" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">房客入住</h3>
+      </div>
+      <div class="modal-body">
+        <p>请输入姓名：<input type="text" name="name" id="name"/></p>
+        <p>请输入身份证：<input type="text" name="idcard" id="idcard"/></p>
+        <p>请输入电话：<input type="text" name="tel" id="tel"/></p>
+        <p>请选择开始时间：<input name="startTime" type="text" id="startTime" title="点击选择" onClick="javascript:ShowCalendar(this.id)" size="20">
+       <input type="button" name="Submit" value="选 择" onClick="javascript:ShowCalendar('startTime')"></p>
+       <p>请选择结束时间：<input name="endTime" type="text" id="endTime" title="点击选择" onClick="javascript:ShowCalendar(this.id)" size="20">
+        <input type="button" name="Submit" value="选 择" onClick="javascript:ShowCalendar('endTime')"></p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+        <button class="btn btn-primary enterRoom">确认</button>
+      </div>
+    </div>
+    </div>
+
+ <!-- Modalend -->
+    <script src="../js/jquery-1.7.2.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/time.js"></script>
+    <script>
+        $('.enterRoom').on('click',()=>{
+            let params = {}
+            params.name = $('#name').val();
+            params.idcard = $('#idcard').val();
+            params.tel = $('#tel').val();
+            params.startTime = $('#startTime').val();
+            params.endTime = $('#endTime').val();
+        });
+    </script>
+</body>
+
+</html>
