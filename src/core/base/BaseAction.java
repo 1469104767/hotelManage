@@ -36,43 +36,21 @@ public class BaseAction <T,S extends BaseService<T,?>>{
 	/**
 	 * 根据id查询
 	 */
-	public T findById(Map<String,String> parMap) {
-		return service.findById(new Integer(parMap.get("id")));
+	public T findById(Integer id) {
+		return service.findById(id);
 	}
 	
 	/**
-	 * 保存,不能传id
-	 * @return 
-	 * @throws Exception 
+	 * 保存,不需要传id
 	 */
-	public Message save(Map<String,String> parMap) throws Exception {
-		Set<Entry<String, String>> set = parMap.entrySet();
-		Object[] parameters = new Object[set.size()];
-		int i = 0;
-		for (Entry<String, String> entry : set) {
-			parameters[i] = entry.getValue();
-			i++;
-		}
-		service.save(parameters);
-		return Message.success();
+	public Message save(T entity) {
+		return service.save(entity);
 	}
 	/**
 	 * 更新,必须传id
-	 * @throws Exception 
 	 */
-	public void update(Map<String,String> parMap) throws Exception {
-		Set<Entry<String, String>> set = parMap.entrySet();
-		Object[] parameters = new Object[set.size()];
-		int i = 0;
-		for (Entry<String, String> entry : parMap.entrySet()) {
-			if("id".equals(entry.getKey())){
-				parameters[i] = new Integer(entry.getValue());
-			}else{
-				parameters[i] = entry.getValue();
-			}
-			i++;
-		}
-		service.update(parameters);
+	public Message update(T entity) {
+		return service.update(entity);
 	}
 	/**
 	 * 根据字段相等查询
@@ -96,9 +74,8 @@ public class BaseAction <T,S extends BaseService<T,?>>{
 	}
 	/**
 	 * 根据id删除
-	 * @throws Exception 
 	 */
-	public void delete(Map<String,String> parMap) throws Exception {
-		service.delete(new Integer(parMap.get("id")));
+	public Message delete(Integer id) {
+		return service.delete(id);
 	}
 }

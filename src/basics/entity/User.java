@@ -4,7 +4,7 @@ public class User {
 	private Integer id;
 	
 	private String clientName;
-	private String clientpassWord;
+	private String ClientPassword;
 	private String clientTel;
 	private Integer clientType;
 	public Integer getId() {
@@ -19,11 +19,11 @@ public class User {
 	public void setClientName(String clientName) {
 		this.clientName = clientName;
 	}
-	public String getClientpassWord() {
-		return clientpassWord;
+	public String getClientPassword() {
+		return ClientPassword;
 	}
-	public void setClientpassWord(String clientpassWord) {
-		this.clientpassWord = clientpassWord;
+	public void setClientPassword(String ClientPassword) {
+		this.ClientPassword = ClientPassword;
 	}
 	public String getClientTel() {
 		return clientTel;

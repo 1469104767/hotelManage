@@ -1,5 +1,12 @@
 package core.util;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,7 +52,5 @@ public class FieldUtil {
 		sb.insert(0, "set");
 		return sb.toString();
 	}
-	public static void main(String[] args) {
-		System.out.println(colNameToSetMethod("user_name"));
-	}
+	
 }

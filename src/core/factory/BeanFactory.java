@@ -5,27 +5,35 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import core.proxy.MapperProxy;
+import core.proxy.TransactionProxy;
 import core.util.FileScanner;
 
 public class BeanFactory {
-	private static final String[] SCAN_BEAN = {"Dao","Service"};
+	private static final String SERVICE = "Service";
+	private static final String MAPPER = "Mapper";
 	private static Map<String,Object> instances = new HashMap<>();
 	
-	/** 初始化时加载扫描的bean */
-	public static void init(){
-		FileScanner scanner = new FileScanner();
-		Set<Class<?>> calssSet = new HashSet<>();
-		for (int i = 0; i < SCAN_BEAN.length; i++) {
-			calssSet.addAll(scanner.search("", SCAN_BEAN[i]));
+	static{
+		try {
+			init();
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
 		}
-		for (Class<?> clazz : calssSet) {
-			try {
-				instances.put(clazz.getName(), clazz.newInstance());
-			} catch (InstantiationException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			}
+	}
+	
+	/** 初始化时加载扫描的bean 
+	  */
+	public static void init() throws InstantiationException, IllegalAccessException{
+		FileScanner scanner = new FileScanner();
+		Set<Class<?>> mapperSet = scanner.search("", MAPPER);
+		Set<Class<?>> serviceSet = scanner.search("", SERVICE);
+		MapperProxy mapperProxy = new MapperProxy();
+		for (Class<?> clazz : mapperSet) {
+			instances.put(clazz.getName(), mapperProxy.bind(clazz));
+		}
+		for (Class<?> clazz : serviceSet) {
+			instances.put(clazz.getName(), new TransactionProxy(clazz.newInstance()).getProxyInstance());
 		}
 	}
 	

@@ -8,6 +8,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 public class LoginFilter  implements Filter{
 
@@ -19,7 +20,12 @@ public class LoginFilter  implements Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		System.out.println("被拦截了");
+		HttpServletRequest req = (HttpServletRequest)request;
+		
+		System.out.println(req.getMethod()+":"+req.getRequestURL());
+		
+		//放行
+		chain.doFilter(request, response);
 	}
 
 	@Override

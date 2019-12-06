@@ -78,14 +78,18 @@ public class ActionFilter implements Filter {
 					resp.sendError(HttpServletResponse.SC_NOT_FOUND);
 				}
 				else{
-					resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+					resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+					resp.setContentType("text/json;charset=UTF-8");
+					PrintWriter writer = resp.getWriter();
+					Message message = Message.error();
+					message.setData(e.getMessage());
+					writer.append(JsonUtils.convertObjectToJSON(message));
 					e.printStackTrace();
 				}
 			}finally {
 				actionRequest.clear();
 				actionResponse.clear();
 			}
-			System.out.println("request:\n-[url]:"+uri+"\n-[parameter]:"+paramterMap);
 		}
 	}
 	
@@ -134,7 +138,6 @@ public class ActionFilter implements Filter {
 	 */
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		BeanFactory.init();
 		FileScanner scanner = new FileScanner();
 		Set<Class<?>> actions = scanner.search("", METHOD_ACTION);
 		for (Class<?> clazz : actions) {
@@ -157,8 +160,8 @@ public class ActionFilter implements Filter {
 				if(method.getDeclaringClass()==Object.class)
 					continue;
 				StringBuilder url = new StringBuilder(path);
-				
-				urlMethodMap.put(url.append("/").append(method.getName()).append(URL_ACTION).toString(), new ActionMethod(method, bean));
+				urlMethodMap.put(url.append("/").append(method.getName()).append(URL_ACTION).toString(),
+						new ActionMethod(method, bean));
 			}
 		}
 	}

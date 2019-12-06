@@ -3,12 +3,10 @@ package core.proxy;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import basics.dao.TestDao;
-import core.base.BaseDao;
+import basics.action.TestAction;
 
 public class DynaProxy implements InvocationHandler {  
     /** *//** 
@@ -55,12 +53,8 @@ public class DynaProxy implements InvocationHandler {
         //返回方法返回值给调用者  
         return result;  
     }  
-    public static  void main(String arg[]) throws SQLException, InterruptedException{  
-    	Object bind = new DynaProxy().bind(new ArrayList<>());
-    	List list = (List)bind;  
-    	list.add(1);
-    	System.out.println(list);
-    }
-	
-  
+	public static void main(String[] args) throws Exception {
+		List bind = (List)new DynaProxy().bind(new ArrayList<>());
+		bind.add("");
+	}
 } 

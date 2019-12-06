@@ -5,44 +5,47 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 import core.factory.BeanFactory;
+import core.web.Message;
 
-public class BaseService<T,D extends BaseDao<T>> {
-	protected D dao;
+public class BaseService<T,D extends BaseMapper<T>> {
+	protected D mapper;
 	
 	 /**
-     * 实例化时写入dao
+     * 实例化时写入mapper
      */
 	public BaseService() {
         super();
-        Class<?> daoClass;
+        Class<?> mapperClass;
 		try {
 			ParameterizedType parametclass = (ParameterizedType) this.getClass().getGenericSuperclass();
 	        Type[] actualTypeArguments = parametclass.getActualTypeArguments();
-			daoClass = Class.forName(actualTypeArguments[0].getTypeName().replace("entity", "dao")+"Dao");
-			dao = (D) BeanFactory.getBean(daoClass.getName(), BaseDao.class) ;
+			mapperClass = (Class<?>)actualTypeArguments[1];
+			mapper = (D) BeanFactory.getBean(mapperClass.getName(), BaseMapper.class) ;
 		} catch (Exception e) {
 		}
-        
     }
 	
 	public T findById(Integer id) {
-		return dao.findById(id);
+		return mapper.findById(id);
 	}
 
-	public void save(Object... parameters) throws Exception {
-		dao.save(parameters);
+	public Message save(T entity) {
+		mapper.save(entity);
+		return Message.success();
 	}
 
-	public void update(Object... parameters) throws Exception {
-		dao.update(parameters);
+	public Message update(T entity) {
+		mapper.update(entity);
+		return Message.success();
 	}
 
 	public List<T> findList(String queryString) {
-		return dao.findList(queryString);
+		return mapper.findList(queryString);
 	}
 
-	public void delete(Integer id) throws Exception {
-		dao.delete(id);
+	public Message delete(Integer id) {
+		mapper.delete(id);
+		return Message.success();
 	}
  
 }

@@ -2,7 +2,7 @@ package core.web;
 
 public class Message {
 	public static final String MESSAGE_SUCCESS = "操作成功！";
-	public static final String MESSAGE_ERROR = "操作失败！";
+	public static final String MESSAGE_ERROR = "操作异常！";
 	private Boolean success;
 	private String message;
 	private Object data;

@@ -41,6 +41,7 @@ public class DataSourcePool implements DataSource {
     }
     public Connection getConnection(boolean isThreadConnection) throws SQLException {
     	Connection conn = threadConnection.get();
+    	//优先使用线程绑定的连接
     	if(conn != null){
     		return threadConnection.get();
     	}
@@ -58,11 +59,14 @@ public class DataSourcePool implements DataSource {
     	return conn;
     }
     
-    public void addBack(Connection conn,boolean isThreadConnection){
+    public void addBack(Connection conn,boolean isThreadConnection) throws SQLException{
+    	if(isThreadConnection==true){
+    		conn.setAutoCommit(true);
+    	}
     	pool.add(conn);
     }
-    public void addBack(Connection conn){
-        pool.add(conn);
+    public void addBack(Connection conn) throws SQLException{
+    	addBack(conn, false);;
     }
     @Override
     public PrintWriter getLogWriter() throws SQLException {
