@@ -23,4 +23,7 @@ public class RoomAction extends BaseAction<Room,RoomService>{
 		return service.save(Room);
 
 	}
-}
+	public Room findRoomById(Integer id) {
+		return service.findById(id);
+	}
+}	

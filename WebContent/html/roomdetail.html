@@ -105,7 +105,10 @@
     <script src="../js/jquery-1.7.2.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/time.js"></script>
+    <script src="../js/base.js"></script>
     <script>
+     let roomId = getUrlParam("roomId");
+     console.log(roomId);
         $('.enterRoom').on('click',()=>{
             let params = {}
             params.name = $('#name').val();

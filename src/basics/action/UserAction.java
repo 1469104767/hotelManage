@@ -31,4 +31,5 @@ public class UserAction extends BaseAction<User,UserService>{
 
 	}
 	
+	
 }

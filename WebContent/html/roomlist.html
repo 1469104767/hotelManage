@@ -70,7 +70,7 @@
         <div class="rightbox-container">
                 <div class="title">房间管理</div>
                 <button class="addRoomBtn">新建房间</button>
-                <ul class="roomList">
+                <ul class="roomList" id="roomList">
                     <li>
                         <div class="roomImg">
                             <img src="../imgs/lalala.jpg" alt="">
@@ -124,21 +124,84 @@
     </div>
     <script src="../js/jquery-1.7.2.min.js"></script>
     <script>
-        $('.addRoomBtn').on("click",()=>{
-            console.log(1111);
-            $.ajax({
-                url:"/addRoom",
-                type:"get",
-                data:{},
-                success:(result)=>{
-                    console.log(result);
-                }
-            })
-        })
-        $('.gotoDetailBtn').on('click',(e)=>{
-            console.log(e.target);
-            window.location.href="./roomdetail.html";
-        })
+    (function(){
+    	let roomList = []
+    	$.ajax({
+    		url:"/hotelManage/basics/room/getRoomList.action",
+    		type:"get",
+    		data:{},
+    		success:function(result){
+    			if(result&&result.length>0){
+    				result.forEach(item=>{
+    					let temp = new Object({
+    							endTime: item.endTime,
+    							id: item.id,
+    							idCard: item.idCard,
+    							innerPeople: item.innerPeople,
+    							innerTel: item.innerTel,
+    							roomName: item.roomName,
+    							roomNum: item.roomNum,
+    							roomPrice: item.roomPrice,
+    							roomStatus: item.roomStatus,
+    							roomType:item.roomType,
+    							roomUrl: item.roomUrl,
+    							startTime: item.startTime,
+    					});
+    					if(temp.roomType==0){
+    						temp.roomType = "大床房";
+    					}else if(temp.roomType==1){
+    						temp.roomType = "标准套房";
+    					}else if(temp.roomType == 2){
+    						temp.roomType = "总统套房";
+    					}
+    					if(temp.roomStatus==0){
+    						temp.roomStatus = "空闲";
+    					}else if(temp.roomStatus==1){
+    						temp.roomStatus = "已入住";
+    					}else if(temp.roomStatus == 2){
+    						temp.roomStatus = "未上架";
+    					}
+    					roomList.push(temp);
+    				});
+    				console.log(roomList);
+    				let roomLiHtml = "";
+    				roomList.forEach((item,index)=>{
+    					roomLiHtml +=`<li key=${index}>
+                            <div class="roomImg">
+                            <img src=${item.roomUrl} alt="" />
+                        </div>
+                        <div class="roomMsg">
+                            <p>房间编号：${item.roomNum}</p>
+                            <p>房间类型：${item.roomType}</p>
+                            <p>房间价格: ${item.roomPrice}</p>
+                            <p>房间状态：${item.roomStatus}</p>
+                            <p><button class="gotoDetailBtn" data-id=${item.id}>查看详情</button></p>
+                        </div>
+                    </li>`
+					$("#roomList").html(roomLiHtml);
+    				})
+    				 $('.addRoomBtn').on("click",()=>{
+    			            console.log(1111);
+    			            $.ajax({
+    			                url:"/addRoom",
+    			                type:"get",
+    			                data:{},
+    			                success:(result)=>{
+    			                    console.log(result);
+    			                }
+    			            })
+    			        })
+    			        $('.gotoDetailBtn').on('click',(e)=>{
+    			            console.log(e.target);
+    			            let $target = $(e.target);
+    			            let roomId = $target.data("id");
+    			            window.location.href="./roomdetail.html?roomId="+roomId;
+    			        })
+    			}
+    		}
+    	});
+       
+    })()
     </script>
 </body>
 

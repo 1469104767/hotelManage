@@ -9,9 +9,9 @@ public class Room {
 	private Integer roomNum;
 	private String roomName;
 	private Double roomPrice;
+	private Integer roomType;
 	private Integer roomStatus;
 	private String roomUrl;
-
 	private String innerPeople;
 	private String innerTel;
 	private String idCard;
@@ -45,7 +45,12 @@ public class Room {
 	public void setRoomPrice(Double roomPrice) {
 		this.roomPrice = roomPrice;
 	}
-	
+	public Integer getRoomType() {
+		return roomType;
+	}
+	public void setRoomType(Integer roomType) {
+		this.roomType = roomType;
+	}
 	public Integer getRoomStatus() {
 		return roomStatus;
 	}
