@@ -1,4 +1,4 @@
-package basics.entity;
+package base;
 
 public class User {
 	private Integer id;
@@ -36,5 +36,10 @@ public class User {
 	}
 	public void setClientType(Integer clientType) {
 		this.clientType = clientType;
+	}
+	@Override
+	public String toString() {
+		return "{\"id\":\"" + id + "\",\"clientName\":\"" + clientName + "\",\"ClientPassword\":\"" + ClientPassword
+				+ "\",\"clientTel\":\"" + clientTel + "\",\"clientType\":\"" + clientType + "\"}  ";
 	}
 }

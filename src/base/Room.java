@@ -1,7 +1,6 @@
-package basics.entity;
+package base;
 
 import java.util.Date;
-
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class Room {
@@ -93,6 +92,4 @@ public class Room {
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
-	
-	
 }
