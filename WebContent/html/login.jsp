@@ -57,7 +57,7 @@
     </div>
     <script src="../js/jquery-1.7.2.min.js"></script>
     <script>
-        $("#loginBtn").on("click",()=>{
+        $("#loginBtn").on("click",function(){
         	let params = {};
         	params.clientName = $("#clientName").val();
         	params.clientPassword = $("#clientPassword").val();
@@ -66,7 +66,14 @@
                 data:params,
                 type:"post",
                 success:function(result){
-                	console.log(result);
+                	if(result == 0){
+                		alert("账号或者密码错误");
+                	}else{
+                		let userObj = JSON.parse(result);
+                		sessionStorage.setItem("user",userObj.clientName);
+             			window.location.href="../html/userlist.jsp";
+                		console.log(userObj);
+                	}
                 }
             })
         })

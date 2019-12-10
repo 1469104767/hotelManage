@@ -70,7 +70,7 @@
     <div class="rightbox">
         <div class="rightbox-header">
             <p class="logo-title">酒店管理平台<p>
-                    <p>admin</p>
+                  <p id="userNameShow">admin<button id="quitBtn">退出</button></p>
         </div>
         <div class="rightbox-container">
             <div class="title">添加用户</div>

@@ -26,6 +26,7 @@ public class Room {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public Integer getRoomNum() {
 		return roomNum;
 	}
@@ -91,5 +92,14 @@ public class Room {
 	}
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
+	}
+	
+	@Override
+	public String toString() {
+		return "{\"id\":\"" + id + "\",\"roomNum\":\"" + roomNum + "\",\"roomName\":\"" + roomName
+				+ "\",\"roomPrice\":\"" + roomPrice + "\",\"roomType\":\"" + roomType + "\",\"roomStatus\":\""
+				+ roomStatus + "\",\"roomUrl\":\"" + roomUrl + "\",\"innerPeople\":\"" + innerPeople
+				+ "\",\"innerTel\":\"" + innerTel + "\",\"idCard\":\"" + idCard + "\",\"startTime\":\"" + startTime
+				+ "\",\"endTime\":\"" + endTime + "\"}  ";
 	}
 }

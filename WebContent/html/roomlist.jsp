@@ -67,7 +67,7 @@
     <div class="rightbox">
         <div class="rightbox-header">
             <p class="logo-title">酒店管理平台<p>
-            <p>admin</p>
+            <p id="userNameShow">admin<button id="quitBtn">退出</button></p>
         </div>
         <div class="rightbox-container">
                 <div class="title">房间管理</div>
@@ -106,6 +106,7 @@
             </div>
     </div>
     <script src="../js/jquery-1.7.2.min.js"></script>
+    <script src="../js/base.js"></script>
     <script>
     $(".gotoDetailBtn").on("click",function(e){
         console.log(e.target);

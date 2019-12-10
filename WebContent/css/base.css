@@ -55,6 +55,17 @@
     justify-content: space-between;
     background: #fff;
 }
+.rightbox .rightbox-header #userNameShow{
+	line-height:60px;
+	
+}
+.rightbox .rightbox-header #userNameShow #quitBtn{
+	border:none;
+	background:none;
+	margin-left:20px;
+	color:#108ee9;
+	cursor: pointer;
+}
 .rightbox .rightbox-header .logo-title{
     font-size: 36px;
     line-height: 66px;

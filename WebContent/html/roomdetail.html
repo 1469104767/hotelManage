@@ -48,9 +48,9 @@
             <img src="../imgs/logo.png" alt="">
         </div>
         <ul class="menu">
-                <li class="current"><a href="./roomlist.html">房间管理</a></li>
-                <li><a href="./orderlist.html">订单管理</a></li>
-                <li><a href="./userlist.html">会员管理</a></li>
+                <li class="current"><a href="./roomlist.jsp">房间管理</a></li>
+                <li><a href="./orderlist.jsp">订单管理</a></li>
+                <li><a href="./userlist.jsp">会员管理</a></li>
         </ul>
     </div>
     <div class="rightbox">
@@ -66,7 +66,7 @@
                     <div class="leftImg">
                         <img src="../imgs/lalala.jpg" alt="">
                     </div>
-                    <div class="rightcontent">
+                    <div class="rightcontent" id="rightcontent">
                             <p>房间编号：101</p>
                             <p>房间类型：大床房</p>
                             <p>房间价格: 400.00</p>
@@ -107,16 +107,86 @@
     <script src="../js/time.js"></script>
     <script src="../js/base.js"></script>
     <script>
-     let roomId = getUrlParam("roomId");
-     console.log(roomId);
-        $('.enterRoom').on('click',()=>{
-            let params = {}
-            params.name = $('#name').val();
-            params.idcard = $('#idcard').val();
-            params.tel = $('#tel').val();
-            params.startTime = $('#startTime').val();
-            params.endTime = $('#endTime').val();
-        });
+    (function(){
+        let roomId = getUrlParam("roomId");
+        let temp;
+        $.ajax({
+        	url:"/hotelManage/FindRoomById",
+        	data:{
+        		id:roomId
+        	},
+        	contentType: "application/x-www-form-urlencoded; charset=utf-8", 
+        	type:"get",
+        	success:function(result){
+        		console.log(result);
+        		temp = result;
+        		if(temp.roomType == 1){
+        			temp.newRoomType="大床房";
+        		}else if(temp.roomType == 2){
+        			temp.newRoomType="标准套房";
+        		}else if(temo.roomType == 3){
+        			temp.newRoomType = "总统套房"
+        		}
+        		if(temp.roomStatus == 0){
+        			temp.newRoomStatus ="空闲";
+        		}else if(temp.roomStatus == 1){
+        			temp.newRoomStatus ="已入住";
+        		}else if(temp.roomStatus == 2){
+        			temp.newRoomStatus ="未上架";
+        		}
+        		let roomhtml = "";
+        		
+        			roomhtml = `<p>房间编号：${temp.roomNum}</p>
+                    <p>房间类型：${temp.newRoomType}</p>
+                    <p>房间价格: ${temp.roomPrice}</p>
+                    <p>房间状态：${temp.newRoomStatus||"---"}</p>
+                    <p>入住房客：${temp.innerPeople||"---"}</p>
+                    <p>房客电话：${temp.innerTel||"---"}</p>
+                    <p>入住时间：${temp.startTime||"---"}</p>
+                    <p>结束时间：${temp.endTime||"---"} </p>  `
+                    
+                    
+                 $("#rightcontent").html(roomhtml);
+                    $('.enterRoom').on('click',()=>{
+                    if(temp.roomStatus!=0){
+         	               let params = {}
+         	               params.id = roomId;
+         	               params.innerPeople = $('#name').val();
+         	               params.idcard = $('#idcard').val();
+         	               params.innerTel = $('#tel').val();
+         	               params.startTime = $('#startTime').val();
+         	               params.endTime = $('#endTime').val();
+         	               params.roomNum = temp.roomNum;
+         	               params.roomType = temp.roomType;
+         	               params.roomPrice = temp.roomPrice;
+         	        	   if(params.innerPeople&params.idcard&params.innerTel&params.startTime&params.endTime){
+         	        		  console.log(params);
+         	        		 $.ajax({
+              	               	url:"/hotelManage/EnterRoom",
+              	               	data:params,
+              	               	type:"post",
+              	               	success:function(result){
+              	               		console.log(result);
+              	               	}
+              	               })
+         	        	   }else{
+         	        		   alert("请将入住信息填写完整");
+         	        		   return;
+         	        	   }
+         	               
+         	               
+         	           
+                    	}else{
+                    		alert("该房间不是空闲状态，不能入住");
+                    	}
+                    });
+        	           
+                   
+        	}
+        })
+
+    })()
+
     </script>
 </body>
 

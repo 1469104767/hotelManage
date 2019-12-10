@@ -38,7 +38,7 @@ public class DoLogin extends HttpServlet {
 //			session.setAttribute("clientName", null);
 			PrintWriter out = response.getWriter();
 			//out = response.getWriter();
-			out.println("用户名或密码错误");
+			out.println(0);
 			out.close();
 		}else{
 			PrintWriter out = response.getWriter();

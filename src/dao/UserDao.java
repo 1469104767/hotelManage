@@ -100,4 +100,34 @@ public class UserDao {
 				}
 		return 0;
 	}
+	
+	public int updateClientType(int id,int type) {
+		// 加载数据库驱动，注册到驱动管理器
+		try {
+					Class.forName("com.mysql.jdbc.Driver");
+					// 创建Connection连接
+					Connection conn = DriverManager.getConnection(url, username,
+							password);
+					// 添加信息的SQL语句
+					String sql = "";
+					if(type == 0) {
+						 sql = "update user set clientType = 1 where id = ?";
+					}else if(type == 1) {
+						sql = "update user set clientType = 0 where id = ?";
+					}
+					PreparedStatement ps = conn.prepareStatement(sql);
+					ps.setInt(1, id);
+					int row = ps.executeUpdate();
+					// 判断是否更新成功
+					if (row > 0) {
+						// 更新成输出信息
+						System.out.print("成功更新 " + row + "条数据！");
+					}
+					ps.close();
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		return 0;
+	}
 }

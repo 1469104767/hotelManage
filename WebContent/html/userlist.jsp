@@ -56,7 +56,7 @@
     <div class="rightbox">
         <div class="rightbox-header">
             <p class="logo-title">酒店管理平台<p>
-                    <p>admin</p>
+                <p id="userNameShow">admin<button id="quitBtn">退出</button></p>
         </div>
         <div class="rightbox-container">
             <div class="title">用户列表</div>
@@ -89,13 +89,20 @@
                     <td><%if(rs.getInt("clientType")==0){ %>管理员
                     <%}else if(rs.getInt("clientType")==1){ %>普通用户
                     <%} %></td>
-                    <td><a href="/hotelManage/DelectUser?id=<%=rs.getInt("id") %>">删除</a><a href="">设为普通用户</a></td>
+                    <td><a href="/hotelManage/DelectUser?id=<%=rs.getInt("id") %>">删除</a>
+                    <%if(rs.getInt("clientType")==0){ %>
+                    <a href="/hotelManage/UpdateClientType?id=<%=rs.getInt("id") %>&clientType=0">设为普通用户</a>
+                    <%}else if(rs.getInt("clientType")==1){ %>
+                    <a href="/hotelManage/UpdateClientType?id=<%=rs.getInt("id") %>&clientType=1">设为管理员</a>
+                    <%} %>
+                    </td>
                 </tr>
                 <% }%>
             </tbody>
         </table>
     </div>
     <script src="../js/jquery-1.7.2.min.js"></script>
+    <script src="../js/base.js"></script>
     <script>
         $('.addPeopleBtn').on('click',function(){
             window.location.href = "adduser.jsp";

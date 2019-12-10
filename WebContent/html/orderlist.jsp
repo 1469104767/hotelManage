@@ -56,20 +56,25 @@
     <div class="rightbox">
         <div class="rightbox-header">
             <p class="logo-title">酒店管理平台<p>
-                    <p>admin</p>
+                <p id="userNameShow">admin<button id="quitBtn">退出</button></p>
+         		
         </div>
         <div class="rightbox-container">
-            <div class="title">用户列表</div>
-            <button class="addPeopleBtn">添加用户</button>
+            <div class="title">订单列表</div>
         <table class="userTable" id="userTable">
             <thead>
             
                 <tr>
-                    <th>用户名</th>
-                    <th>密码</th>
-                    <th>电话</th>
-                    <th>职位</th>
-                    <th>操作</th>
+                    <th>订单编号</th>
+                    <th>房客姓名</th>
+                    <th>房客电话</th>
+                    <th>房客身份证</th>
+                    <th>房间编号</th>
+                    <th>房间类型</th>
+                    <th>房间价格</th>
+                    <th>入住时间</th>
+                    <th>结束时间</th>
+                    <th>操作人员</th>
                 </tr>
             </thead>
             <tbody>
@@ -78,19 +83,25 @@
 					String url="jdbc:mysql://localhost:3306/hotelmanage?useUnicode=true&characterEncoding=utf-8";
 					Connection con=DriverManager.getConnection(url,"root","root");
 					Statement stmt=con.createStatement();
-					String sql="select * from user";
+					String sql="select * from orderlist";
 					ResultSet rs=stmt.executeQuery(sql);
 					while(rs.next()){
 				%>
                 <tr>
                 
-                    <td><%=rs.getString("clientName") %></td>
-                    <td><%=rs.getString("clientPassword") %></td>
-                    <td><%=rs.getString("clientTel") %></td>
-                    <td><%if(rs.getInt("clientType")==0){ %>管理员
-                    <%}else if(rs.getInt("clientType")==1){ %>普通用户
-                    <%} %></td>
-                    <td><a href="/hotelManage/DelectUser?id=<%=rs.getInt("id") %>">删除</a><a href="">设为普通用户</a></td>
+                    <td><%=rs.getInt("id") %></td>
+                    <td><%=rs.getString("innerPeople") %></td>
+                    <td><%=rs.getString("innerTel") %></td>
+                    <td><%=rs.getString("idCard") %></td>
+                    <td><%=rs.getInt("roomNum") %></td>
+                    <td><%if(rs.getInt("roomType")==1){ %>大床房
+                          <%}else if(rs.getInt("roomType")==2){ %>标准套房
+                          <%}else if(rs.getInt("roomType")==3){ %>总统套房
+                          <%} %></td>
+                    <td><%=rs.getBigDecimal("roomPrice") %></td>
+            		<td><%=rs.getTimestamp("startTime") %></td>
+            		<td><%=rs.getTimestamp("endTime") %></td>
+            		<td><%=rs.getString("operator") %></td>
                 </tr>
                 <% }%>
             </tbody>
@@ -98,9 +109,6 @@
     </div>
     <script src="../js/jquery-1.7.2.min.js"></script>
     <script>
-        $('.addPeopleBtn').on('click',function(){
-            window.location.href = "adduser.jsp";
-        })
     </script>
 </body>
 </html>
