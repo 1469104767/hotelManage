@@ -17,5 +17,5 @@ function getUrlParam(name){
 $("#quitBtn").on("click",function(){
 	console.log(123);
 	sessionStorage.removeItem("user");
-	window.location.href="../html/login.jsp"
+	window.location.href="../html/login.jsp";
 });

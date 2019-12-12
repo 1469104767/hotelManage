@@ -72,7 +72,6 @@
                 		let userObj = result;
                 		sessionStorage.setItem("user",userObj.clientName);
              			window.location.href="../html/roomlist.jsp";
-                		console.log(userObj);
                 	}
                 }
             })
