@@ -1,5 +1,6 @@
 (function(){
 	let loginFlag = sessionStorage.getItem("user");
+	console.log(loginFlag);
 	if(loginFlag){
 		$("#userNameShow").html(loginFlag+"<button id='quitBtn'>退出</button>");
 	}else{
@@ -14,5 +15,7 @@ function getUrlParam(name){
 }
 
 $("#quitBtn").on("click",function(){
+	console.log(123);
 	sessionStorage.removeItem("user");
+	window.location.href="../html/login.jsp"
 });

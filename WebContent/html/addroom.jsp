@@ -1,11 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>添加用户</title>
+    <title>添加房间</title>
     <link rel="stylesheet" href="../css/base.css">
     <style>
         .rightbox .rightbox-container .addPeopleBtn,
@@ -32,7 +33,7 @@
         }
         .rightbox .rightbox-container .formBox span{
             display: inline-block;
-            width: 100px;
+            width: 150px;
             text-align: right;
             margin-right:20px; 
         }
@@ -43,7 +44,7 @@
         .rightbox .rightbox-container .formBox input[type="radio"]{
             width: 48px;
         }
-        .rightbox .rightbox-container .formBox input[type="submit"],.rightbox .rightbox-container .formBox button{
+        .rightbox .rightbox-container .formBox button{
             width: 120px;
             color: #fff;
             margin-left:10px ;
@@ -61,34 +62,50 @@
             <img src="../imgs/logo.png" alt="">
         </div>
         <ul class="menu">
-            <li><a href="./roomlist.html">房间管理</a></li>
-            <li><a href="./orderlist.html">订单管理</a></li>
-            <li class="current"><a href="./userlist.html">会员管理</a></li>
+            <li class="current"><a href="./roomlist.jsp">房间管理</a></li>
+            <li><a href="./orderlist.jsp">订单管理</a></li>
+            <li><a href="./userlist.jsp">会员管理</a></li>
         </ul>
     </div>
     <div class="rightbox">
         <div class="rightbox-header">
             <p class="logo-title">酒店管理平台<p>
-                    <p>admin</p>
+                  <p id="userNameShow">admin<button id="quitBtn">退出</button></p>
         </div>
         <div class="rightbox-container">
-            <div class="title">添加用户</div>
+            <div class="title">添加房间</div>
             <div class="formBox">
-                <form action="">
-                    <p><span>请输入用户名</span><input type="text" name="clientName" /></p>
-                    <p><span>请输入密码</span><input type="text" name="" /></p>
-                    <p><span>请输入电话</span><input type="text" name="" /></p>
-                    <p><span>请选择类型</span><input type="radio" name="clientType" value="0"/>管理员<input type="radio" name="clientType" value="1"/>普通用户</p>
-                    <p><input type="submit" value="确定" /><button type="button" class="gotoBack">返回上一页</button></p>
-                </form>
+                    <p><span>请输入房间编号</span><input type="text" name="roomNum" id="roomNum" /></p>
+                    <p><span>请输入房间名字</span><input type="text" name="roomName" id="roomName"/></p>
+                    <p><span>请输入房间价格</span><input type="text" name="roomPrice" id="roomPrice"/></p>
+                    <p><span>请选择房间类型</span><input type="radio" name="roomType" value="1"/>大床房<input type="radio" name="roomType" value="2"/>标准套房<input type="radio" name="roomType" value="3"/>总统套房</p>
+                    <p><button type="button" id="submitRoom">确定</button><button type="button" class="gotoBack">返回上一页</button></p>
             </div>
     </div>
     <script src="../js/jquery-1.7.2.min.js"></script>
+    <script src="../js/base.js"></script>
     <script>
-        $('.gotoBack').on('click',(e)=>{
-            window.location.href = "userlist.html";
+        $('.gotoBack').on('click',function(e){
+            window.location.href = "roomlist.jsp";
             e.stopPropagation();
            return;
+        })
+        $("#submitRoom").on('click',function(){
+        	let room = {};
+        	room.roomNum = $("#roomNum").val();
+        	room.roomName = $("#roomName").val();
+        	room.roomPrice = $("#roomPrice").val();
+        	room.roomType = $("input[name=roomType]:checked").val();
+        	console.log(room);
+        	$.ajax({
+        		url:"/hotelManage/AddRoom",
+        		data:room,
+        		type:"post",
+        		success:function(result){
+						alert("新增成功");
+						window.location.href = "roomlist.jsp"
+        		}
+        	})
         })
     </script>
 </body>

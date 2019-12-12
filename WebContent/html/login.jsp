@@ -69,9 +69,9 @@
                 	if(result == 0){
                 		alert("账号或者密码错误");
                 	}else{
-                		let userObj = JSON.parse(result);
+                		let userObj = result;
                 		sessionStorage.setItem("user",userObj.clientName);
-             			window.location.href="../html/userlist.jsp";
+             			window.location.href="../html/roomlist.jsp";
                 		console.log(userObj);
                 	}
                 }

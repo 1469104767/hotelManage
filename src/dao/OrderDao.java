@@ -1,7 +1,6 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
@@ -28,9 +27,9 @@ public class OrderDao {
 					ps.setString(2, order.getIdCard() );
 					ps.setString(3, order.getInnerTel() );
 					ps.setInt(4, order.getRoomNum() );
-					ps.setInt(5, order.getRoomNum() );
-					ps.setDate(6, (Date) order.getStartTime());
-					ps.setDate(7,(Date) order.getEndTime() );
+					ps.setInt(5, order.getRoomType() );
+					ps.setDate(6, order.getStartTime());
+					ps.setDate(7, order.getEndTime() );
 					ps.setDouble(8, order.getRoomPrice());
 					ps.setString(9, order.getOperator());
 					int row = ps.executeUpdate();

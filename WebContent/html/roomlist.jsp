@@ -114,6 +114,9 @@
         let roomId = $target.data("id");
         window.location.href="./roomdetail.html?roomId="+roomId;
     })
+    $(".addRoomBtn").on('click',function(){
+    	 window.location.href="./addroom.jsp"
+    });
     </script>
 </body>
 </html>

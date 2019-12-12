@@ -108,6 +108,7 @@
         </table>
     </div>
     <script src="../js/jquery-1.7.2.min.js"></script>
+    <script src="../js/base.js"></script>
     <script>
     </script>
 </body>

@@ -8,5 +8,11 @@
 </head>
 <body>
 
+
+<script>
+(function(){
+	window.location.href = "./html/login.jsp";
+})()
+</script>
 </body>
 </html>

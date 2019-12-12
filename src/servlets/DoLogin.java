@@ -27,6 +27,8 @@ public class DoLogin extends HttpServlet {
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/json;charset=UTF-8");
 		User user = new User();
 		user.setClientName(request.getParameter("clientName"));
 		user.setClientPassword(request.getParameter("clientPassword"));

@@ -16,6 +16,38 @@ public class RoomDao {
 	// 数据库密码
 	private String password = "root";
 	
+	
+	public int addRoom(Room room) {
+		// 加载数据库驱动，注册到驱动管理器
+		int flag = 0;
+		try {
+					Class.forName("com.mysql.jdbc.Driver");
+					// 创建Connection连接
+					Connection conn = DriverManager.getConnection(url, username,
+							password);
+					// 添加信息的SQL语句
+					String sql = "insert into room(roomNum,roomName,roomType,roomPrice) values(?,?,?,?)";
+					PreparedStatement ps = conn.prepareStatement(sql);
+					ps.setInt(1, room.getRoomNum() );
+					ps.setString(2,room.getRoomName());
+					ps.setInt(3,room.getRoomType());
+					ps.setDouble(4,room.getRoomPrice());
+					int row = ps.executeUpdate();
+					// 判断是否更新成功
+					if (row > 0) {
+						// 更新成输出信息
+						System.out.print("成功添加了 " + row + "条数据！");
+					}
+					ps.close();
+					conn.close();
+					flag = 0;
+				} catch (Exception e) {
+					e.printStackTrace();
+					flag = 1;
+				}
+		return flag;
+	}
+	
 	public List<Room> findRoomById(int id) {
 		List<Room> roomList = new ArrayList<>();
 		// 加载数据库驱动，注册到驱动管理器
@@ -49,5 +81,55 @@ public class RoomDao {
 					e.printStackTrace();
 				}
 		return roomList;
+	}
+	public int UpdateRoom(Room room) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			// 创建Connection连接
+			Connection conn = DriverManager.getConnection(url,username,password);
+			// 添加信息的SQL语句
+			String sql = "update room set roomStatus=1, innerPeople = ?,innerTel = ?,idCard=?,startTime=?, endTime = ?,roomUrl=? where id = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1,room.getInnerPeople());
+			ps.setString(2,room.getInnerTel());
+			ps.setString(3,room.getIdCard());
+			ps.setDate(4,room.getStartTime());
+			ps.setDate(5,room.getEndTime());
+			ps.setString(6,room.getRoomUrl());
+			ps.setInt(7, room.getId());
+			int row = ps.executeUpdate();
+			// 判断是否更新成功
+			if (row > 0) {
+				// 更新成输出信息
+				System.out.print("成功更新了 " + row + "条数据！");
+			}
+			ps.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	public int OutRoom(int id) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			// 创建Connection连接
+			Connection conn = DriverManager.getConnection(url,username,password);
+			// 添加信息的SQL语句
+			String sql = "update room set roomStatus=0, innerPeople = null,innerTel = null,idCard=null,startTime=null, endTime = null where id = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			int row = ps.executeUpdate();
+			// 判断是否更新成功
+			if (row > 0) {
+				// 更新成输出信息
+				System.out.print("成功更新了 " + row + "条数据！");
+			}
+			ps.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 }

@@ -1,6 +1,6 @@
 package base;
 
-import java.util.Date;
+import java.sql.Date;
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class Room {

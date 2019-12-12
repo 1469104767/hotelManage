@@ -79,10 +79,11 @@
                     <p><span>请输入密码</span><input type="text" name="clientPassword" id="clientPassword"/></p>
                     <p><span>请输入电话</span><input type="text" name="clientTel" id="clientTel"/></p>
                     <p><span>请选择类型</span><input type="radio" name="clientType" value="0"/>管理员<input type="radio" name="clientType" value="1"/>普通用户</p>
-                    <p><button type="button" id="submitUser">确定</button></p><button type="button" class="gotoBack">返回上一页</button></p>
+                    <p><button type="button" id="submitUser">确定</button><button type="button" class="gotoBack">返回上一页</button></p>
             </div>
     </div>
     <script src="../js/jquery-1.7.2.min.js"></script>
+    <script src="../js/base.js"></script>
     <script>
         $('.gotoBack').on('click',function(e){
             window.location.href = "userlist.jsp";

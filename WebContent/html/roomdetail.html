@@ -124,7 +124,7 @@
         			temp.newRoomType="大床房";
         		}else if(temp.roomType == 2){
         			temp.newRoomType="标准套房";
-        		}else if(temo.roomType == 3){
+        		}else if(temp.roomType == 3){
         			temp.newRoomType = "总统套房"
         		}
         		if(temp.roomStatus == 0){
@@ -139,16 +139,17 @@
         			roomhtml = `<p>房间编号：${temp.roomNum}</p>
                     <p>房间类型：${temp.newRoomType}</p>
                     <p>房间价格: ${temp.roomPrice}</p>
-                    <p>房间状态：${temp.newRoomStatus||"---"}</p>
-                    <p>入住房客：${temp.innerPeople||"---"}</p>
-                    <p>房客电话：${temp.innerTel||"---"}</p>
-                    <p>入住时间：${temp.startTime||"---"}</p>
-                    <p>结束时间：${temp.endTime||"---"} </p>  `
+                    <p>房间状态：${temp.newRoomStatus}</p>
+                    <p>入住房客：${temp.innerPeople!="null"?temp.innerPeople:"---"}</p>
+                    <p>房客电话：${temp.innerTel != "null"?temp.innerTel:"---"}</p>
+                    <p>入住时间：${temp.startTime != "null"?temp.startTime:"---"}</p>
+                    <p>结束时间：${temp.endTime != "null"?temp.endTime:"---"} </p>  `
                     
                     
                  $("#rightcontent").html(roomhtml);
                     $('.enterRoom').on('click',()=>{
-                    if(temp.roomStatus!=0){
+                    	console.log(temp.roomStatus);
+                    if(temp.roomStatus == 0){
          	               let params = {}
          	               params.id = roomId;
          	               params.innerPeople = $('#name').val();
@@ -159,14 +160,17 @@
          	               params.roomNum = temp.roomNum;
          	               params.roomType = temp.roomType;
          	               params.roomPrice = temp.roomPrice;
-         	        	   if(params.innerPeople&params.idcard&params.innerTel&params.startTime&params.endTime){
+         	               params.operator = sessionStorage.getItem("user");
+         	               console.log(params)
+         	        	   if(params.innerPeople&&params.idcard&&params.innerTel&&params.startTime&&params.endTime){
          	        		  console.log(params);
          	        		 $.ajax({
               	               	url:"/hotelManage/EnterRoom",
               	               	data:params,
               	               	type:"post",
               	               	success:function(result){
-              	               		console.log(result);
+              	               		alert("房客入住成功");
+              	               		window.location.href = "roomdetail.html?roomId="+roomId;
               	               	}
               	               })
          	        	   }else{
@@ -174,14 +178,25 @@
          	        		   return;
          	        	   }
          	               
-         	               
-         	           
                     	}else{
                     		alert("该房间不是空闲状态，不能入住");
                     	}
                     });
-        	           
-                   
+        	        <!--房客退房-->
+        	        $(".removePeopleBtn").on("click",function(){
+        	        	$.ajax({
+        	        		url:"/hotelManage/OutRoom",
+        	        		data:{
+        	        			id:roomId
+        	        		},
+        	        		type:"get",
+        	        		success:function(result){
+        	        			console.log(result);
+        	        			alert("退房成功");
+        	        			window.location.href = "roomdetail.html?roomId="+roomId;
+        	        		}
+        	        	})
+        	        })
         	}
         })
 
